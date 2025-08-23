@@ -1,0 +1,84 @@
+{
+  "name": "export-staged-files",
+  "displayName": "Export Staged Files",
+  "description": "Export staged Git files to a folder with directory structure",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "exportStagedFiles.export",
+        "title": "Export Staged Files",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "exportStagedFiles.exportWithCustomFolder",
+        "title": "Export Staged Files to Custom Folder",
+        "icon": "$(folder-opened)"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "exportStagedFiles.export",
+          "group": "navigation",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "exportStagedFiles.exportWithCustomFolder",
+          "group": "navigation",
+          "when": "scmProvider == git"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "exportStagedFiles.export"
+        },
+        {
+          "command": "exportStagedFiles.exportWithCustomFolder"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Export Staged Files",
+      "properties": {
+        "exportStagedFiles.defaultFolder": {
+          "type": "string",
+          "default": "exported-changes",
+          "description": "Default folder name for exported files"
+        },
+        "exportStagedFiles.openFolderAfterExport": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open the exported folder in file explorer after export"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.103.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
