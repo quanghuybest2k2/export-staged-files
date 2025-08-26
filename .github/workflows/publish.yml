@@ -1,0 +1,30 @@
+name: Publish VS Code Extension
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout source code
+      - uses: actions/checkout@v3
+
+      # 2. Setup Node.js
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3. Install vsce
+      - run: npm install -g @vscode/vsce
+
+      # 4. Install dependencies
+      - run: npm install
+
+      # 5. Build file .vsix (để test)
+      - run: vsce package
+
+      # 6. Publish lên Marketplace (tự tăng version patch)
+      - run: vsce publish patch -p ${{ secrets.VSCE_TOKEN }}
