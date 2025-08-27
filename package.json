@@ -3,7 +3,7 @@
   "displayName": "Export Staged Files",
   "publisher": "quanghuybest2k2",
   "description": "Export staged Git files to a folder with directory structure",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.103.0"
