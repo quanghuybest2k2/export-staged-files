@@ -1,11 +1,23 @@
 {
   "name": "export-staged-files",
   "displayName": "Export Staged Files",
+  "publisher": "quanghuybest2k2",
   "description": "Export staged Git files to a folder with directory structure",
-  "version": "1.0.0",
+  "version": "1.0.3",
+  "icon": "assets/logo.png",
   "engines": {
     "vscode": "^1.103.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quanghuybest2k2/export-staged-files.git"
+  },
+  "keywords": [
+    "git",
+    "export",
+    "staged",
+    "files"
+  ],
   "categories": [
     "Other"
   ],
@@ -16,12 +28,12 @@
       {
         "command": "exportStagedFiles.export",
         "title": "Export Staged Files",
-        "icon": "$(folder-library)"
+        "icon": "$(cloud-upload)"
       },
       {
         "command": "exportStagedFiles.exportWithCustomFolder",
         "title": "Export Staged Files to Custom Folder",
-        "icon": "$(folder-opened)"
+        "icon": "$(file-directory)"
       }
     ],
     "menus": {
@@ -60,6 +72,24 @@
           "description": "Open the exported folder in file explorer after export"
         }
       }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "exportStagedFilesContainer",
+          "title": "Export Files",
+          "icon": "assets/circle.svg"
+        }
+      ]
+    },
+    "views": {
+      "exportStagedFilesContainer": [
+        {
+          "id": "exportStagedFilesView",
+          "name": "Export Tools",
+          "icon": "assets/circle.svg"
+        }
+      ]
     }
   },
   "scripts": {
@@ -68,17 +98,21 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.ts\"",
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
+    "@types/vscode": "^1.103.0",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "eslint": "^9.32.0",
-    "typescript": "^5.9.2",
     "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "prettier": "^3.6.2"
   }
 }
