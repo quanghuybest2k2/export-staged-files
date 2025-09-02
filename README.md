@@ -9,8 +9,10 @@ Extension này giúp bạn xuất (export) các file đã thay đổi trong dự
 - ✅ Xuất tất cả các file đã thay đổi (staged, modified, untracked) trong workspace hiện tại
 - ✅ Tùy chọn tên thư mục xuất tùy ý
 - ✅ Giữ nguyên cấu trúc thư mục gốc khi export
-- ✅ Tạo file `export-info.json` chứa thông tin chi tiết về lần export
-- ✅ Tự động mở thư mục export sau khi hoàn tất
+- ✅ Hỗ trợ định dạng đầu ra: folder, .zip, .tar.gz
+- ✅ Template đặt tên xuất: `{project}-{branch}-{timestamp}` (tùy biến)
+- ✅ Tạo `manifest.json` chứa thông tin chi tiết + checksum SHA-256 (bật/tắt được)
+- ✅ Tự động mở thư mục/hiển thị file sau khi export
 - ✅ Hiển thị progress trong quá trình export
 
 ## Yêu cầu hệ thống
@@ -44,20 +46,27 @@ Extension này giúp bạn xuất (export) các file đã thay đổi trong dự
 
 ### 3. Kết quả sau khi export
 
-- ✨ Các file thay đổi được copy sang thư mục đã chọn, giữ nguyên cấu trúc thư mục gốc
-- 📋 File `export-info.json` chứa thông tin chi tiết:
+- ✨ Các file thay đổi được copy vào thư mục hoặc đóng gói thành archive (.zip/.tar.gz)
+- 📋 File `manifest.json` (nếu bật) chứa thông tin chi tiết và checksum:
   ```json
   {
-    "projectName": "tên-project",
-    "exportDate": "2025-08-27T10:30:00.000Z",
+    "name": "myapp-main-20250902-102030",
+    "projectName": "myapp",
+    "branch": "main",
+    "commitHash": "a1b2c3d",
+    "user": "Your Name",
+    "exportDate": "2025-09-02T10:20:30.000Z",
     "totalFiles": 5,
     "stagedFiles": 2,
     "modifiedFiles": 2,
     "untrackedFiles": 1,
-    "files": ["src/file1.ts", "src/file2.ts", ...]
+    "files": [
+      { "path": "src/file1.ts", "size": 123, "sha256": "..." },
+      { "path": "README.md", "size": 456, "sha256": "..." }
+    ]
   }
   ```
-- 📂 Thư mục export được mở tự động trong File Explorer
+- 📂 Thư mục export được mở hoặc file archive được hiển thị trong Explorer
 
 ## Các loại file được export
 
@@ -73,6 +82,22 @@ Extension sẽ export các file thuộc các trạng thái sau:
 | ------------------------------------------ | -------------------------------- |
 | `exportStagedFiles.export`                 | Export với tên thư mục mặc định  |
 | `exportStagedFiles.exportWithCustomFolder` | Export với tên thư mục tùy chỉnh |
+
+## Cấu hình
+
+- `exportStagedFiles.outputFormat`: `folder` | `zip` | `tar.gz` (mặc định: `folder`)
+- `exportStagedFiles.nameTemplate`: Template đặt tên. Token hỗ trợ:
+  - `{project}`: tên project (thư mục workspace)
+  - `{branch}`: tên nhánh Git hiện tại
+  - `{hash}`: commit hash rút gọn
+  - `{timestamp}`: dạng `YYYYMMDD-HHmmss`
+  - `{user}`: Git user.name
+    (ký tự không hợp lệ trong đường dẫn sẽ được thay bằng '-')
+- `exportStagedFiles.includeManifest`: Bật/tắt tạo `manifest.json` (mặc định: true)
+
+Ảnh minh họa phần cài đặt:
+
+![Settings](images/settings.png)
 
 ## Lưu ý quan trọng
 

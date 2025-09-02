@@ -3,7 +3,7 @@
   "displayName": "Export Staged Files",
   "publisher": "quanghuybest2k2",
   "description": "Export staged Git files to a folder with directory structure",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "icon": "assets/logo.png",
   "engines": {
     "vscode": "^1.103.0"
@@ -64,12 +64,32 @@
         "exportStagedFiles.defaultFolder": {
           "type": "string",
           "default": "exported-changes",
-          "description": "Default folder name for exported files"
+          "description": "Default folder name for exported files (used when no custom name is provided)"
         },
         "exportStagedFiles.openFolderAfterExport": {
           "type": "boolean",
           "default": true,
-          "description": "Open the exported folder in file explorer after export"
+          "description": "Open the exported folder or reveal the archive after export"
+        },
+        "exportStagedFiles.outputFormat": {
+          "type": "string",
+          "enum": [
+            "folder",
+            "zip",
+            "tar.gz"
+          ],
+          "default": "folder",
+          "markdownDescription": "Output format for exported changes. Use `folder` to copy files to a directory, `zip` for a .zip archive, or `tar.gz` for a gzip tarball."
+        },
+        "exportStagedFiles.nameTemplate": {
+          "type": "string",
+          "default": "{project}-{branch}-{timestamp}",
+          "markdownDescription": "Template for the export name (folder or archive). Supported tokens: `{project}`, `{branch}`, `{hash}`, `{timestamp}`, `{user}`. Invalid path characters will be sanitized."
+        },
+        "exportStagedFiles.includeManifest": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include a manifest.json that lists files, sizes, and checksums."
         }
       }
     },
@@ -113,6 +133,8 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@types/archiver": "^6.0.3",
+    "archiver": "^7.0.1",
     "prettier": "^3.6.2"
   }
 }
