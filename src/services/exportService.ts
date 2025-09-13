@@ -24,7 +24,7 @@ export class ExportService {
       'nameTemplate',
       '{project}-{branch}-{timestamp}',
     );
-    const includeManifest = cfg.get<boolean>('includeManifest', true);
+    const includeManifest = cfg.get<boolean>('includeManifest', false);
 
     try {
       const git = new GitService(workspacePath);

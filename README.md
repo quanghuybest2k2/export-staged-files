@@ -93,7 +93,7 @@ Extension sẽ export các file thuộc các trạng thái sau:
   - `{timestamp}`: dạng `YYYYMMDD-HHmmss`
   - `{user}`: Git user.name
     (ký tự không hợp lệ trong đường dẫn sẽ được thay bằng '-')
-- `exportStagedFiles.includeManifest`: Bật/tắt tạo `manifest.json` (mặc định: true)
+- `exportStagedFiles.includeManifest`: Bật/tắt tạo `manifest.json` (mặc định: false)
 
 Ảnh minh họa phần cài đặt:
 
